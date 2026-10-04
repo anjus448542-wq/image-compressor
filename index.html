@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SqueezePic - Ultra Fast, Private Image Compressor</title>
-    <meta name="description" content="Compress JPG, PNG & WebP images to exact KB/MB size online. 100% private in-browser compression for exam forms, passport photos, and web.">
+    <title>SqueezePic - Smart Image Compressor & Target Size Resizer</title>
+    <meta name="description" content="Compress JPG, PNG & WebP images to exact KB/MB size online for free. 100% private in-browser compression for exam forms, passport photos, and web optimization.">
     
-    <!-- Custom Modern Google Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-dark: #090d16;
-            --surface: #121826;
-            --surface-card: #1a2234;
+            --bg-dark: #070a12;
+            --surface: #0f172a;
+            --surface-card: #1e293b;
             --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(99, 102, 241, 0.5);
+            --border-highlight: rgba(99, 102, 241, 0.4);
             --primary: #6366f1;
-            --primary-light: #818cf8;
+            --primary-hover: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.3);
             --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.25);
             --amber: #f59e0b;
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
@@ -28,7 +30,11 @@
             --radius-md: 12px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             background-color: var(--bg-dark);
@@ -39,17 +45,17 @@
             flex-direction: column;
             align-items: center;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, .brand-font {
+        h1, h2, h3, h4, .brand-font {
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Top Bar */
+        /* Top Navigation Header */
         header {
             width: 100%;
             max-width: 1050px;
@@ -62,47 +68,53 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
         }
 
-        .brand-icon {
-            width: 36px;
-            height: 36px;
+        .brand-logo {
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--primary), #a855f7);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 16px var(--primary-glow);
         }
 
-        .nav-badge {
+        .brand-logo svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
+        }
+
+        .privacy-badge {
             background: rgba(16, 185, 129, 0.1);
             color: var(--emerald);
             border: 1px solid rgba(16, 185, 129, 0.25);
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .pulse-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             background-color: var(--emerald);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--emerald);
-            animation: pulse 1.8s infinite;
+            box-shadow: 0 0 10px var(--emerald);
+            animation: pulseAnimation 1.8s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulseAnimation {
             0% { transform: scale(0.95); opacity: 0.8; }
             50% { transform: scale(1.3); opacity: 1; }
             100% { transform: scale(0.95); opacity: 0.8; }
@@ -110,36 +122,36 @@
 
         main {
             width: 100%;
-            max-width: 860px;
+            max-width: 880px;
             padding: 20px 16px 60px;
         }
 
         /* Hero Text */
-        .hero-title {
+        .hero {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .hero-title h1 {
-            font-size: clamp(2rem, 5vw, 3.1rem);
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
             line-height: 1.15;
             letter-spacing: -1px;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-title p {
+        .hero p {
             color: var(--text-sub);
             font-size: 1.05rem;
-            max-width: 580px;
+            max-width: 600px;
             margin: 0 auto;
             line-height: 1.6;
         }
 
-        /* Ad Frame */
-        .ad-placeholder {
+        /* Ad Banner Placeholder */
+        .ad-space {
             width: 100%;
             height: 90px;
             background: rgba(255, 255, 255, 0.015);
@@ -151,22 +163,21 @@
             color: var(--text-sub);
             font-size: 0.8rem;
             letter-spacing: 0.5px;
-            margin-bottom: 25px;
+            margin: 25px 0;
         }
 
-        /* Studio Card Container */
+        /* Main Studio Card */
         .app-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 28px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            transition: border-color 0.3s;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
         }
 
-        /* Interactive Dropzone */
-        .drop-box {
+        /* Drag & Drop Upload Zone */
+        .drop-zone {
             border: 2px dashed var(--border);
             background: rgba(255, 255, 255, 0.01);
             border-radius: 16px;
@@ -174,26 +185,16 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            user-select: none;
         }
 
-        .drop-box:hover, .drop-box.drag-over {
-            border-color: var(--primary-light);
-            background: rgba(99, 102, 241, 0.04);
+        .drop-zone:hover, .drop-zone.drag-active {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
             transform: translateY(-2px);
         }
 
-        .drop-box.drag-over {
-            animation: bounceBorder 1s infinite alternate;
-        }
-
-        @keyframes bounceBorder {
-            0% { border-color: var(--primary); }
-            100% { border-color: var(--emerald); }
-        }
-
-        .upload-icon-circle {
+        .icon-circle {
             width: 64px;
             height: 64px;
             background: var(--surface-card);
@@ -206,15 +207,15 @@
             transition: transform 0.3s ease;
         }
 
-        .drop-box:hover .upload-icon-circle {
+        .drop-zone:hover .icon-circle {
             transform: scale(1.1) rotate(-5deg);
             border-color: var(--primary);
         }
 
-        .upload-icon-circle svg {
+        .icon-circle svg {
             width: 28px;
             height: 28px;
-            fill: var(--primary-light);
+            fill: var(--primary);
         }
 
         .drop-title {
@@ -224,13 +225,13 @@
             margin-bottom: 6px;
         }
 
-        .drop-sub {
+        .drop-subtitle {
             font-size: 0.85rem;
             color: var(--text-sub);
         }
 
-        /* Mode Tabs */
-        .mode-toggle {
+        /* Mode Switcher Tabs */
+        .tab-bar {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
@@ -261,14 +262,14 @@
         }
 
         /* Control Panel Elements */
-        .controls-wrapper {
+        .controls-group {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        .input-group {
+        .input-row {
             display: flex;
             gap: 10px;
         }
@@ -291,19 +292,20 @@
         }
 
         /* Preset Chips */
-        .chip-label {
+        .presets-label {
             font-size: 0.82rem;
             color: var(--text-sub);
-            margin-top: 4px;
+            margin-top: 8px;
+            margin-bottom: 6px;
         }
 
-        .chips-container {
+        .chips-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
 
-        .chip {
+        .preset-chip {
             padding: 8px 14px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border);
@@ -315,19 +317,19 @@
             user-select: none;
         }
 
-        .chip:hover {
+        .preset-chip:hover {
             background: var(--primary);
             border-color: var(--primary);
             color: #fff;
             transform: translateY(-1px);
         }
 
-        .chip:active {
+        .preset-chip:active {
             transform: scale(0.96);
         }
 
-        /* Slider Control */
-        .range-wrapper {
+        /* Range Slider */
+        .range-box {
             background: var(--surface-card);
             padding: 16px;
             border-radius: 12px;
@@ -351,19 +353,19 @@
             cursor: pointer;
         }
 
-        /* Live Split Image Viewer */
-        .viewer-card {
+        /* Interactive Split Comparison Viewer */
+        .viewer-container {
             position: relative;
             width: 100%;
             height: 280px;
-            background: #070a12;
+            background: #040711;
             border-radius: 14px;
             overflow: hidden;
             border: 1px solid var(--border);
             margin-top: 20px;
         }
 
-        .view-img {
+        .view-image {
             position: absolute;
             top: 0;
             left: 0;
@@ -380,7 +382,7 @@
             width: 50%;
             height: 100%;
             overflow: hidden;
-            border-right: 2px solid var(--primary-light);
+            border-right: 2px solid var(--primary);
             box-shadow: 2px 0 10px rgba(99, 102, 241, 0.5);
         }
 
@@ -395,9 +397,11 @@
             z-index: 10;
         }
 
-        .stat-bar {
+        /* Processing Status Badge & Results */
+        .stats-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 14px;
             font-size: 0.9rem;
             font-weight: 600;
@@ -406,9 +410,17 @@
 
         .stat-orig { color: var(--text-sub); }
         .stat-comp { color: var(--emerald); }
+        .savings-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
 
-        /* Primary Action Button */
-        .btn-action {
+        /* Action Download Button */
+        .btn-download {
             width: 100%;
             padding: 16px;
             background: linear-gradient(135deg, var(--primary), var(--primary-hover));
@@ -421,43 +433,62 @@
             cursor: pointer;
             margin-top: 20px;
             transition: all 0.2s ease;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+            box-shadow: 0 8px 25px var(--primary-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .btn-action:hover {
+        .btn-download:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 12px 30px var(--primary-glow);
         }
 
-        .btn-action:active {
+        .btn-download:active {
             transform: scale(0.98);
         }
 
-        /* Organic SEO Guide Content */
-        .guide-section {
+        /* Spinner for calculations */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* SEO Content Article Section */
+        .seo-container {
             margin-top: 60px;
             color: var(--text-sub);
-            line-height: 1.7;
+            line-height: 1.75;
         }
 
-        .guide-section h2 {
+        .seo-container h2 {
             font-size: 1.6rem;
             color: #fff;
-            margin: 35px 0 16px;
+            margin: 36px 0 16px;
         }
 
-        .guide-section h3 {
+        .seo-container h3 {
             font-size: 1.15rem;
             color: #e2e8f0;
             margin: 24px 0 10px;
         }
 
-        .guide-section p {
+        .seo-container p {
             margin-bottom: 16px;
             font-size: 0.96rem;
         }
 
-        .guide-card {
+        .seo-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
@@ -465,7 +496,7 @@
             margin-bottom: 14px;
         }
 
-        .guide-card h4 {
+        .seo-card h4 {
             color: #fff;
             font-size: 1.05rem;
             margin-bottom: 8px;
@@ -475,7 +506,7 @@
             width: 100%;
             border-top: 1px solid var(--border);
             margin-top: 80px;
-            padding: 30px;
+            padding: 30px 20px;
             text-align: center;
             color: var(--text-sub);
             font-size: 0.85rem;
@@ -484,15 +515,15 @@
 </head>
 <body>
 
-    <!-- Top Navigation -->
+    <!-- Navigation Header -->
     <header>
         <a href="#" class="brand">
-            <div class="brand-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+            <div class="brand-logo">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
             </div>
             SqueezePic
         </a>
-        <div class="nav-badge">
+        <div class="privacy-badge">
             <div class="pulse-dot"></div>
             100% In-Browser Private
         </div>
@@ -500,71 +531,71 @@
 
     <main>
         <!-- Hero Section -->
-        <div class="hero-title">
+        <div class="hero">
             <h1>Compress Images to Exact KB</h1>
-            <p>Squeeze JPG, PNG, and WebP photos to your required target size without destroying visual quality. Designed for speed & privacy.</p>
+            <p>Reduce JPG, PNG, and WebP images to your required file size limit automatically without losing clarity. Fast, free, and secure.</p>
         </div>
 
-        <!-- Top Ad Space -->
-        <div class="ad-placeholder">GOOGLE ADSENSE BANNER SPACE (728x90)</div>
+        <!-- AdSense Top Banner -->
+        <div class="ad-space">GOOGLE ADSENSE TOP BANNER PLACEHOLDER (728x90)</div>
 
-        <!-- Main Studio App -->
+        <!-- Image Tool App Card -->
         <div class="app-card">
             
-            <!-- Dropzone -->
-            <div class="drop-box" id="dropBox">
-                <div class="upload-icon-circle">
+            <!-- Drag & Drop Container -->
+            <div class="drop-zone" id="dropZone">
+                <div class="icon-circle">
                     <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
                 </div>
                 <div class="drop-title">Drop your image here</div>
-                <div class="drop-sub">or click anywhere to browse from device (JPG, PNG, WebP)</div>
+                <div class="drop-subtitle">or click to browse from device (JPG, PNG, WebP)</div>
             </div>
 
-            <!-- Editor Controls (Hidden until file selected) -->
-            <div id="editorControls" style="display: none;">
+            <!-- Controls Panel (Hidden by default) -->
+            <div id="controlsPanel" style="display: none;">
                 
-                <!-- Mode Toggle -->
-                <div class="mode-toggle">
-                    <button class="tab-btn active" id="tabTarget" onclick="setMode('target')">🎯 Exact KB / MB Limit</button>
-                    <button class="tab-btn" id="tabQuality" onclick="setMode('quality')">🎚️ Manual Quality %</button>
+                <!-- Mode Switcher -->
+                <div class="tab-bar">
+                    <button class="tab-btn active" id="tabTarget" onclick="switchMode('target')">🎯 Exact KB / MB Target</button>
+                    <button class="tab-btn" id="tabQuality" onclick="switchMode('quality')">🎚️ Manual Quality %</button>
                 </div>
 
-                <div class="controls-wrapper">
+                <div class="controls-group">
                     
-                    <!-- Target KB Panel -->
-                    <div id="panelTarget">
-                        <div class="input-group">
-                            <input type="number" id="inputTargetVal" class="custom-input" value="50" min="5" placeholder="Target Size">
-                            <select id="selectTargetUnit" class="custom-select">
+                    <!-- Exact Target KB/MB Panel -->
+                    <div id="targetModePanel">
+                        <div class="input-row">
+                            <input type="number" id="targetValueInput" class="custom-input" value="50" min="5" placeholder="Desired size">
+                            <select id="targetUnitSelect" class="custom-select">
                                 <option value="KB">KB</option>
                                 <option value="MB">MB</option>
                             </select>
                         </div>
-                        <div class="chip-label" style="margin-top: 10px; margin-bottom: 6px;">One-click Presets (Govt Forms & Exams):</div>
-                        <div class="chips-container">
-                            <div class="chip" onclick="applyQuickPreset(20, 'KB')">Signature (&lt; 20 KB)</div>
-                            <div class="chip" onclick="applyQuickPreset(50, 'KB')">Passport Photo (&lt; 50 KB)</div>
-                            <div class="chip" onclick="applyQuickPreset(100, 'KB')">&lt; 100 KB</div>
-                            <div class="chip" onclick="applyQuickPreset(200, 'KB')">&lt; 200 KB</div>
+                        <div class="presets-label">Quick Presets for Govt Forms & Exams:</div>
+                        <div class="chips-grid">
+                            <div class="preset-chip" onclick="applyPreset(20, 'KB')">Signature (&lt; 20 KB)</div>
+                            <div class="preset-chip" onclick="applyPreset(50, 'KB')">Passport Photo (&lt; 50 KB)</div>
+                            <div class="preset-chip" onclick="applyPreset(100, 'KB')">&lt; 100 KB</div>
+                            <div class="preset-chip" onclick="applyPreset(200, 'KB')">&lt; 200 KB</div>
                         </div>
                     </div>
 
                     <!-- Quality Slider Panel -->
-                    <div id="panelQuality" style="display: none;">
-                        <div class="range-wrapper">
+                    <div id="qualityModePanel" style="display: none;">
+                        <div class="range-box">
                             <div class="range-header">
-                                <span>Compression Intensity</span>
-                                <span id="labelQuality">75%</span>
+                                <span>Compression Quality</span>
+                                <span id="qualityValueBadge">75%</span>
                             </div>
-                            <input type="range" id="sliderQuality" min="10" max="95" value="75">
+                            <input type="range" id="qualityRangeInput" min="5" max="95" value="75">
                         </div>
                     </div>
 
-                    <!-- Format Convert Dropdown -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border);">
+                    <!-- Output Format Selector -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.25); padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border);">
                         <span style="font-size: 0.88rem; font-weight: 600;">Convert Format:</span>
-                        <select id="selectFormat" class="custom-select" style="padding: 8px 12px; font-size: 0.85rem;">
-                            <option value="same">Keep Original</option>
+                        <select id="formatSelect" class="custom-select" style="padding: 8px 12px; font-size: 0.85rem;">
+                            <option value="same">Keep Original Format</option>
                             <option value="image/jpeg">Convert to JPG</option>
                             <option value="image/webp">Convert to WebP</option>
                         </select>
@@ -573,33 +604,16 @@
                 </div>
 
                 <!-- Interactive Split Comparison Viewer -->
-                <div class="viewer-card" id="viewerCard">
-                    <img id="imgCompressed" class="view-img" src="" alt="Compressed Output">
+                <div class="viewer-container" id="viewerContainer">
+                    <img id="compressedImg" class="view-image" src="" alt="Compressed Output">
                     <div class="view-overlay" id="viewOverlay">
-                        <img id="imgOriginal" class="view-img" src="" alt="Original Input">
+                        <img id="originalImg" class="view-image" src="" alt="Original Input">
                     </div>
-                    <input type="range" min="0" max="100" value="50" class="split-slider" id="sliderSplit">
+                    <input type="range" min="0" max="100" value="50" class="split-slider" id="splitRangeSlider">
                 </div>
 
-                <div class="stat-bar">
-                    <span class="stat-orig">Original: <strong id="sizeOrig">0 KB</strong></span>
-                    <span class="stat-comp">Optimized: <strong id="sizeComp">0 KB</strong></span>
-                </div>
-
-                <button class="btn-action" id="btnDownload">Download Squeezed Image</button>
-
-            </div>
-
-        </div>
-
-        <!-- Bottom Ad Space -->
-        <div class="ad-placeholder" style="margin-top: 30px;">GOOGLE ADSENSE BANNER SPACE (728x90)</div>
-
-        <!-- SEO Guide & FAQ Content -->
-        <section class="guide-section">
-            <h2>How SqueezePic Works</h2>
-            <p>SqueezePic processes your images directly inside your web browser. Your photos never leave your device, ensuring zero privacy risk, complete speed, and no server queue delays.</p>
-
-            <h3>How to Compress Photos to 20KB or 50KB for Online Forms</h3>
-            <p>Official portals like UPSC, SSC, NEET, and IBPS require specific photo size restrictions (e.g. signature scans under 20 KB and passport photos under 50 KB). Here is how you can do it in seconds:</p>
-         
+                <!-- Compression Statistics -->
+                <div class="stats-row">
+                    <span class="stat-orig">Original: <strong id="origSizeLabel">0 KB</strong></span>
+                    <span id="savingsBadge" class="savings-badge">-0%</span>
+                    <span 
