@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SqueezePic - Online Image Compressor</title>
+    <title>EasySize - Free Online Image Compressor & KB Resizer</title>
     <meta name="description" content="Compress JPG, PNG, and WebP images to exact KB size online for free. Clean, fast, and 100% private in-browser compression.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -52,21 +52,27 @@
             align-items: center;
             gap: 10px;
             font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-weight: 800;
+            color: var(--text-dark);
             text-decoration: none;
         }
 
+        .brand span {
+            color: var(--primary);
+        }
+
         .brand-icon {
-            width: 34px;
-            height: 34px;
-            background: var(--primary);
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: #fff;
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
 
         .privacy-tag {
@@ -170,7 +176,7 @@
             color: var(--text-muted);
         }
 
-        /* Size Input Box (Pi7 Style) */
+        /* Size Input Box */
         .size-control-bar {
             margin-top: 24px;
             padding: 18px;
@@ -348,8 +354,8 @@
 
     <header>
         <a href="#" class="brand">
-            <div class="brand-icon">S</div>
-            SqueezePic
+            <div class="brand-icon">ES</div>
+            Easy<span>Size</span>
         </a>
         <div class="privacy-tag">100% Free & Private</div>
     </header>
@@ -372,7 +378,7 @@
                 </div>
             </div>
 
-            <!-- Size Input Controls (Pi7 Style) -->
+            <!-- Size Input Controls -->
             <div class="size-control-bar">
                 <span class="size-label">Size:</span>
                 <input type="number" id="targetSizeVal" class="size-input-field" value="50" min="5" placeholder="50">
@@ -518,7 +524,7 @@
             const a = document.createElement('a');
             a.href = URL.createObjectURL(finalBlob);
             let ext = rawFile.name.split('.').pop();
-            a.download = `compressed-${rawFile.name.split('.')[0]}.${ext}`;
+            a.download = `easysize-${rawFile.name.split('.')[0]}.${ext}`;
             a.click();
         });
 
